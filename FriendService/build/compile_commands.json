@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/FriendServer.pb.cc.o -c /home/ubuntu/ByteTalk/FriendService/src/FriendServer.pb.cc",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/FriendServer.pb.cc"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/FriendService.cpp.o -c /home/ubuntu/ByteTalk/FriendService/src/FriendService.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/FriendService.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/FriendService.pb.cc.o -c /home/ubuntu/ByteTalk/FriendService/src/FriendService.pb.cc",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/FriendService.pb.cc"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/LogServer.pb.cc.o -c /home/ubuntu/ByteTalk/FriendService/src/LogServer.pb.cc",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/LogServer.pb.cc"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/ZooKeeperMatser.cpp.o -c /home/ubuntu/ByteTalk/FriendService/src/ZooKeeperMatser.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/ZooKeeperMatser.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendService.dir/run.cpp.o -c /home/ubuntu/ByteTalk/FriendService/src/run.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/src/run.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/auxiliary_process/FriendServer/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendServer.dir/FriendServer.cpp.o -c /home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/FriendServer.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/FriendServer.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/auxiliary_process/FriendServer/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendServer.dir/FriendServer.pb.cc.o -c /home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/FriendServer.pb.cc",
+  "file": "/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/FriendServer.pb.cc"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/auxiliary_process/FriendServer/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendServer.dir/ZooKeeperFow.cpp.o -c /home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/ZooKeeperFow.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/ZooKeeperFow.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/auxiliary_process/FriendServer/src",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/FriendServer.dir/run.cpp.o -c /home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/run.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/src/run.cpp"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/example",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/callee.dir/FriendService.pb.cc.o -c /home/ubuntu/ByteTalk/FriendService/example/FriendService.pb.cc",
+  "file": "/home/ubuntu/ByteTalk/FriendService/example/FriendService.pb.cc"
+},
+{
+  "directory": "/home/ubuntu/ByteTalk/FriendService/build/example",
+  "command": "/usr/bin/g++-7   -I/home/ubuntu/ByteTalk/FriendService/include -I/home/ubuntu/ByteTalk/FriendService/auxiliary_process/FriendServer/include  -g -g   -o CMakeFiles/callee.dir/main.cpp.o -c /home/ubuntu/ByteTalk/FriendService/example/main.cpp",
+  "file": "/home/ubuntu/ByteTalk/FriendService/example/main.cpp"
+}
+]
