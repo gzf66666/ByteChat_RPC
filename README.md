@@ -46,8 +46,6 @@
 这里是摘自[百度百科反向代理](https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86)的图，这里的反向代理服务器就是我们的nginx，后面的原始服务器就是我们实际提供服务的服务器群，也就是整个架构图大圆圈圈起来的地方。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505123743379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 ## nginx 反向代理的配置
-具体nginx的安装其配置在之前的博客有介绍：[Ubuntu 安装Nginx及简单配置](https://blog.csdn.net/shenmingxueIT/article/details/113186948?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162018961216780366581962%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162018961216780366581962&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-113186948.nonecase&utm_term=nginx&spm=1018.2226.3001.4450)
-
 这里就来看一下，针对ByteTalk，我们应该怎样去配置？
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505125836895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 这里我们配置了两个服务器群的入口地址:`172.17.0.2:6051` 和`172.17.0.2:7051`，nginx监听的则是`172.17.0.2:8000`端口。当客户端发消息过来，代理服务器来接受客户端的网络访问连接请求，然后服务器将请求有策略的转发给网络中实际工作的业务服务器，并将从业务服务器处理的结果，返回给网络上发起连接请求的客户端。但是这对代理服务器的网络I/O是一个巨大的考验，这个我们需要考虑。
@@ -66,7 +64,7 @@
 
 另外，就像神经信号在神经纤维中传递一样，每个服务单元中的服务节点就是神经元，而RPC就是服务单元内的脉络，是神经纤维。这个过程必须十分频繁，且需求快速。所以，整个服务器最好是部署在一个局域网内，减少网络中信息传递所带来的耗时。
 
-## ByteTalk 服务单元 —— 抽象服务节点：ProxyService
+## ByteChat_RPC 服务单元 —— 抽象服务节点：ProxyService
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505141604931.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 
 
@@ -100,7 +98,7 @@ ProxyService 作为整个服务单元的入口，**整个服务单元对外暴�
 
 对于接受者和发送者不在同一服务节点的情况下，我们就需要去zookeeper注册中心，去获得我们的一个从节点：**chatserver x**，然后将这条消息交给它去处理就好。
 
-## ByteTalk 抽象服务节点 —— 聊天处理服务器：ChatServer
+## ByteChat_RPC 抽象服务节点 —— 聊天处理服务器：ChatServer
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505141810416.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 对于一个聊天信息，ChatServer 会先去 Redis 服务器上查询这个用户是否在线；如果在线，取得它的 Host 信息（也就是用户所在的服务单元），然后去已建立的连接map 中看是否建立过，如果没有建立，那么就建立，然后将这个连接放入map。接下来将这条信息转发过去；如果不在线，就将这个消息存储到 mysql 的OfflineMsg表中，供客户端下次上线时读取。
 
@@ -108,7 +106,7 @@ ProxyService 作为整个服务单元的入口，**整个服务单元对外暴�
 > Redis 服务器主要存储了用户的Host信息如下： id号 ip：host 
 > 例：10086 "127.0.0.1:3001"
 
-## ByteTalk 业务服务单元 —— 以登录、注册节点：UserService为例
+## ByteChat_RPC 业务服务单元 —— 以登录、注册节点：UserService为例
 对于登录功能来说，ProxyService节点会先去 mysql 表中查询，是否和数据库中的数据匹配；如果不匹配，就给客户端返回错误信息。如果正确，就由ProxyService将 此用户的 Host 信息写入Redis服务器中。
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2021050514311212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
