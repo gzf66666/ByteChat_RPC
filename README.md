@@ -115,13 +115,8 @@ ProxyService 作为整个服务单元的入口，**整个服务单元对外暴�
 
 **UserServer x**会和持久层的 mysql 进行交互，具体的读取这个用户信息。
 
-具体服务单元是怎么实现的，可用查看博客：[完成一个分布式的登录、注册、注销服务器并构建zookeeper集群](https://blog.csdn.net/shenmingxueIT/article/details/116107321)
-
 其他的业务服务单元，也就是下图这些，都是和UserService才有相同的设计。
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505143616601.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
-
-> **注**：
-> 日志服务器设计不同，具体参考这篇博文：[做一个分布式的日志服务器](https://blog.csdn.net/shenmingxueIT/article/details/115858620)
 
 具体可以看一下源码，有异议的地方可以发博主邮箱讨论。
 
