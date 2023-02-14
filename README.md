@@ -1,10 +1,10 @@
-# ByteTalk
+# ByteChat_RPC
 
 由于git push总上传大文件失败，所以生成的可执行文件没有上传成功，需要大家自己对 CMakeLists.txt rebuild
 
-作者：shenmingik
+作者：gzf66666
 
-邮箱：2107810343@qq.com
+邮箱：gzf66666@foxmail.com
 
 时间：2021/5/5 12:04
 
@@ -23,7 +23,7 @@
 编程语言：C++
 
 # 写在前面
-针对春招各个大厂的面试官对我春招项目：[基于muduo网络库的集群聊天系统](https://blog.csdn.net/shenmingxueIT/article/details/113199719) 提出的问题以及建议，对原来的集群项目进行了以下改进：
+针对春招各个大厂的面试官对我春招项目：[基于muduo网络库的集群聊天系统](https://github.com/gzf66666/ByteChat) 提出的问题以及建议，对原来的集群项目进行了以下改进：
 
 * 由简单nginx集群改为分布式集群
 * 序列化格式由 json 改为protobuf
@@ -32,35 +32,15 @@
 * 引入数据库连接池
 * 增加新业务
 
-整个项目从构思到架构设计再到服务端研发总共花费了一个月左右的事件，期间遇到过大大小小的问题，也都总结了下来：[杂记——在开发ByteTalk中遇到的困难以及解决](https://blog.csdn.net/shenmingxueIT/article/details/115903786)
+整个项目从构思到架构设计再到服务端研发总共花费了一个月左右的时间，希望可以在春招大放异彩！！！
 
-# 系统前置知识
-有些还没整理完，先放上整理过的知识：
-
-**zookeeper 系列：**
-* [zookeeper入门——基础知识](https://blog.csdn.net/shenmingxueIT/article/details/116135815)
-
-**protobuf 系列：**
-* [protobuf入门](https://blog.csdn.net/shenmingxueIT/article/details/114670839)
-
-**RPC 系列:**
-* [一个基于 protobuf 和 zookeeper 的RPC框架](https://blog.csdn.net/shenmingxueIT/article/details/115773482)
-
-**数据库系列:**
-* [mysql使用手册——基础篇](https://blog.csdn.net/shenmingxueIT/article/details/112118070?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162018818316780265441696%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162018818316780265441696&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-4-112118070.nonecase&utm_term=mysql&spm=1018.2226.3001.4450)
-* [自己实现一个数据库连接池](https://blog.csdn.net/shenmingxueIT/article/details/115025639?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162018818316780265441696%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162018818316780265441696&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-5-115025639.nonecase&utm_term=mysql&spm=1018.2226.3001.4450)
-* [redis 的机制](https://blog.csdn.net/shenmingxueIT/article/details/114709757?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162018818316780265441696%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162018818316780265441696&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-9-114709757.nonecase&utm_term=mysql&spm=1018.2226.3001.4450)
-
-Nginx系列：
-* [Ubuntu 安装Nginx及简单配置](https://blog.csdn.net/shenmingxueIT/article/details/113186948?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162018961216780366581962%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162018961216780366581962&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-1-113186948.nonecase&utm_term=nginx&spm=1018.2226.3001.4450)
-
-# ByteTalk架构设计图
+# ByteChat_RPC架构设计图
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505141459542.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 
 
 图可能有点模糊，接下来我会把每个图放大讲解。
 
-# ByteTalk架构 —— nginx反向代理负载均衡
+# ByteChat_RPC架构 —— nginx反向代理负载均衡
 整个系统在客户端和实际服务的服务器中添加了一个**反向代理服务器** —— nginx，同时利用nginx的负载均衡来达到**降低网络和服务器的负载**的目的。但是，这个也有缺陷，在本文的末尾会讲到。
 
 这里是摘自[百度百科反向代理](https://baike.baidu.com/item/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86)的图，这里的反向代理服务器就是我们的nginx，后面的原始服务器就是我们实际提供服务的服务器群，也就是整个架构图大圆圈圈起来的地方。
