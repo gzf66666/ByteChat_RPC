@@ -50,7 +50,7 @@
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505125836895.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 这里我们配置了两个服务器群的入口地址:`172.17.0.2:6051` 和`172.17.0.2:7051`，nginx监听的则是`172.17.0.2:8000`端口。当客户端发消息过来，代理服务器来接受客户端的网络访问连接请求，然后服务器将请求有策略的转发给网络中实际工作的业务服务器，并将从业务服务器处理的结果，返回给网络上发起连接请求的客户端。但是这对代理服务器的网络I/O是一个巨大的考验，这个我们需要考虑。
 
-# ByteTalk架构 —— 服务器群（服务单元）
+# ByteChat_RPC架构 —— 服务器群（服务单元）
 这里的服务器群指的是整个架构图中大圆圈的部分：
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20210505141545661.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NoZW5taW5neHVlSVQ=,size_16,color_FFFFFF,t_70)
 
@@ -120,7 +120,7 @@ ProxyService 作为整个服务单元的入口，**整个服务单元对外暴�
 
 具体可以看一下源码，有异议的地方可以发博主邮箱讨论。
 
-# ByteTalk 架构缺陷
+# ByteChat_RPC 架构缺陷
 1. 由于博主技术栈原因（就是菜），对于数据库，包括mysql Redis部分，其并没有考虑高并发和高可用，也没有进行分库分表等设计。
 2. 对于Nginx来说，这里的设计不是很好，其会承担很高的网络I/O压力。其实更应该去自己实现以下一个服务单元的注册中心，里面存储了服务单元的Host信息及负载压力等信息，然后客户端去主动拉取服务单元的信息，用哈希或者最小负载等信息去自己连接一个服务单元
 3. 对于某个Service去选择具体的服务节点Server，这里博主采用的是最简单的轮询方法。但是我的Server都是动态上限的，如果Server 1上线工作了很久，处理的请求达到了3w，这个时候Server 2上线了，那么我的Service去分派请求的时候，就应该去侧重Server 2，而不是这个时候还要轮询。这个选择应该是最小负载，而不是轮询
